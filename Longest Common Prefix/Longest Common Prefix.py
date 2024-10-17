@@ -11,4 +11,3 @@ class Solution(object):
             if match_string == len(strs):
                 match_index += 1
         return strs[0][:match_index] if match_index > 0 else ""
-
