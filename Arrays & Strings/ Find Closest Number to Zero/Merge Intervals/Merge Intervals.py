@@ -2,21 +2,19 @@ class Solution(object):
     def merge(self, intervals):
         if not intervals:
             return []
+
+        # Sort intervals based on start time
+        intervals.sort(key=lambda x: x[0])
         
-        print(intervals[0])
+        result = [intervals[0]]
 
-        # # Sort intervals based on start time
-        # intervals.sort(key=lambda x: x[0])
-        
-        # result = [intervals[0]]
+        for i in range(1, len(intervals)):
+            if intervals[i][0] <= result[-1][1]:
+                result[-1][1] = max(result[-1][1], intervals[i][1])
+            else:
+                result.append(intervals[i])
 
-        # for interval in intervals[1:]:
-        #     if interval[0] <= result[-1][1]:
-        #         result[-1][1] = max(result[-1][1], interval[1])
-        #     else:
-        #         result.append(interval)
-
-        # return result
+        return result
 
 # Test case
 if __name__ == "__main__":
@@ -27,14 +25,4 @@ if __name__ == "__main__":
     
     print("Input intervals:", test_intervals)
     merged_intervals = sol.merge(test_intervals)
-    # print("Merged intervals:", merged_intervals)
-
-    # # Expected output: [[1,6],[8,10],[15,18]]
-    # print("Expected output: [[1,6],[8,10],[15,18]]")
-
-    # # Verify if the output matches the expected result
-    # expected_output = [[1,6],[8,10],[15,18]]
-    # if merged_intervals == expected_output:
-    #     print("Test case passed!")
-    # else:
-    #     print("Test case failed.")
+    print("Merged intervals:", merged_intervals)
